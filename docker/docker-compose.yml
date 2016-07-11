@@ -1,0 +1,20 @@
+db:
+  image: gencatcloud/mongodb:3.2
+  ports:
+    - 27017:27017
+    - 28017:28017
+  environment:
+    MONGODB_USER : user
+    MONGODB_PASS : password
+    MONGODB_DATABASE : contactlist
+  volumes:
+    - /home/canigo/demo-MEAN/datadir:/data/db
+demo:
+  image: gencatcloud/nodejs:4.2.6
+  links:
+    - db:mybbdd
+  volumes:
+   - /home/canigo/demo-MEAN:/app
+  ports:
+   - 3000:3000
+  command: bash -c "cd /app && npm install && node server"
